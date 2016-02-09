@@ -1,62 +1,43 @@
 //initialize function called when the script loads
 function initialize(){
-	jQueryAjax();
-	//debugCallback();
-	//debugAjax();
+	debugAjax();
 }
 
     //define a variable to hold the data
-    //define data variable globally to be used in all functions
+    //define data variable globally to be used
     var mydata;
 
-//define AJAX function
-function jQueryAjax(){
-
-    //basic jQuery ajax method
-    $.ajax("data/Cities.geojson", {
-        dataType: "json",
-        success: function(response){
-            mydata = response;
-
-            //check the data
-            //executed within the callback, after data is loaded and assigned
-            console.log(mydata);
-        }
-    });
-
-    //check the data
-    //executed first, before the data is loaded and returns undefined
-    console.log(mydata);
-    
-
-
-//debug portion of assignment
-function debugCallback(response){
-	
-	$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
-};
-
+//define function to house jQuery ajax method
 function debugAjax(){
 	
+	//basic jQuery ajax method
 	$.ajax("data/Cities.geojson", {
+	
+		//key value pairs and their associated values
+		//what type of data do we want back
 		dataType: "json",
+		
+		//function to be called if the data request works
+		//response is argument that will return data from server
 		success: function(response){
-				console.log("This runs");
+			
+			//setting mydata to the response called from server
+			mydata = response;
+			
+			//check the data
+            //console.log executed within the callback, after data is loaded and assigned
+            console.log(mydata);
+            
+            $("#mydiv").append('<br>GeoJSON data:<br>' + JSON.stringify(mydata));
 
-			debugCallback(mydata);
-		}
+            }
 	});
-
-	$(mydiv).append('<br>GeoJSON data:<br>' + JSON.stringify(mydata));
-};
-
-$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
-
-
+	
+	//check the data
+    //executed first, before the data is loaded and returns undefined
+    console.log(mydata);
 
 };
-
-
 
 //call the initialize function when the document has loaded
 $(document).ready(initialize);
